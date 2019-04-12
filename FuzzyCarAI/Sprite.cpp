@@ -1,0 +1,26 @@
+#include "Sprite.h"
+
+Sprite::~Sprite()
+{}
+
+Sprite::Sprite(const sf::Vector2f & size) : RectangleShape(size)
+{}
+
+void Sprite::setVelocity(float vx, float vy)
+{
+	velocity.x = vx;
+	velocity.y = vy;
+}
+
+sf::Vector2f Sprite::getVelocity()
+{
+	return velocity;
+}
+
+void Sprite::setAlive(bool live) {
+	alive = live;
+}
+
+bool Sprite::isAlive() {
+	return alive;
+}
