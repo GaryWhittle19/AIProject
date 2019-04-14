@@ -17,20 +17,18 @@
 #include "Game.h"
 #include "fl/headers.h"
 
-
 using namespace std;
+using namespace fl;
 
 int main(int argc, char *argv[])
 {
+	// Setup the fuzzylite engine and the sfml window
 	fl::Engine* engine = fl::FisImporter().fromFile("AICar.fis");
-
-
-
 	sf::RenderWindow window(sf::VideoMode(800, 600), "FuzzyTheSmartCar!");
 
 	// Setup input and game object from our classes
 	Input input;
-	Game game(&window, &input);
+	Game game(&window, &input, engine);
 
 	// To fix the window view
 	sf::View fixed = window.getView();
@@ -67,6 +65,9 @@ int main(int argc, char *argv[])
 
 		deltaTime = clock.getElapsedTime().asMilliseconds();
 		game.update(&deltaTime); //update game
+
+		fl::OutputVariable* output = engine->getOutputVariable(-0.5);
+
 		game.render(); //render game
 	}
 

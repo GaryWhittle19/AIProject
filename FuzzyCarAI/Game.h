@@ -9,11 +9,12 @@
 /** OUR CLASSES */
 #include "Input.h"
 #include "StaticSprite.h"
+#include "fl/headers.h"
 
 class Game
 {
 public:
-	Game(sf::RenderWindow* hwnd, Input* in);
+	Game(sf::RenderWindow* hwnd, Input* in, fl::Engine* engi);
 	~Game();
 
 	void update(float* delta);
@@ -23,6 +24,7 @@ protected:
 	// Window and input objects
 	sf::RenderWindow* window;
 	Input* input;
+	fl::Engine* engine;
 	// Background
 	StaticSprite backgroundSP;
 	sf::Texture backgroundTX;
