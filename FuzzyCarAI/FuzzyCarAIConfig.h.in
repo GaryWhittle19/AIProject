@@ -1,3 +1,0 @@
-// the configured options and settings for FuzzyCar
-#define FuzzyCar_VERSION_MAJOR @FuzzyCar_VERSION_MAJOR@
-#define FuzzyCar_VERSION_MINOR @FuzzyCar_VERSION_MINOR@
