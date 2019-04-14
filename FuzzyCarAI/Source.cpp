@@ -5,6 +5,8 @@
 #include <SFML/System/Time.hpp>
 
 /** STANDARD LIBRARY INCLUDES */
+#include <stdio.h>
+#include <stdlib.h>
 #include <memory>
 #include <thread>
 #include <string>
@@ -13,11 +15,21 @@
 /** OUR CLASSES */
 #include "Input.h"
 #include "Game.h"
+#include "cmake\&{PROJECT_BINARY_DIR}\FuzzyCarAIConfig.h"
 
 using namespace std;
 
-int main()
+int main(int argc, char *argv[])
 {
+	if (argc < 2)
+	{
+		fprintf(stdout, "%s Version %d.%d\n",
+			argv[0],
+			FuzzyCar_VERSION_MAJOR,
+			FuzzyCar_VERSION_MINOR);
+		fprintf(stdout, "Usage: %s number\n", argv[0]);
+	}
+
 	sf::RenderWindow window(sf::VideoMode(800, 600), "FuzzyTheSmartCar!");
 
 	// Setup input and game object from our classes
