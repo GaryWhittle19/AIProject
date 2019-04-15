@@ -30,7 +30,7 @@ Game::Game(sf::RenderWindow* hwnd, Input* in, fl::Engine* engi)
 	playerSP.setSize(sf::Vector2f(160, 120));
 	playerSP.setTexture(&playerTX);
 	playerSP.setOrigin(80, 60);
-	playerSP.setVelocity(0.3f, 0.0f);
+	playerSP.setVelocity(-1.0f, 0.0f);
 
 	// Player 2 sprite
 	if (!player2TX.loadFromFile("graphics/player2.png"))
@@ -40,8 +40,7 @@ Game::Game(sf::RenderWindow* hwnd, Input* in, fl::Engine* engi)
 	player2SP.setSize(sf::Vector2f(160, 120));
 	player2SP.setTexture(&player2TX);
 	player2SP.setOrigin(80, 60);
-	player2SP.setVelocity(-0.3f, 0.0f);
-
+	player2SP.setVelocity(1.0f, 0.0f);
 
 	playerSP.setPosition(266, 100);	
 	player2SP.setPosition(532, 500);
@@ -54,15 +53,28 @@ Game::~Game()
 
 void Game::update(float* delta)
 {
-	float Player1Dis = -0.5f;//(playerSP.getPosition().x - 300) / 100; // -300 to make player1 distance range from -300 to 300
-	float Player2Dis = -0.5f;//(player2SP.getPosition().x - 300) / 100;
+	float player1Dis;
+	if (playerSP.getPosition().x < 400) {
+		player1Dis = playerSP.getPosition().x / 400 * -1;
+	}
+	else if (playerSP.getPosition().x > 400) {
+		player1Dis = (playerSP.getPosition().x - 400) / 400;
+	}
+	
+	float player2Dis;
+	if (player2SP.getPosition().x < 400) {
+		player2Dis = player2SP.getPosition().x / 400 * -1;
+	}
+	else if (player2SP.getPosition().x > 400) {
+		player2Dis = (player2SP.getPosition().x - 400) / 400;
+	}
 
 	fl::InputVariable* distance = engine->getInputVariable("Distance");
 	fl::InputVariable* velocity = engine->getInputVariable("Velocity");
 	fl::OutputVariable* steering = engine->getOutputVariable("Steering");
 
 	// Process player one
-	distance->setValue(Player1Dis);
+	distance->setValue(player1Dis);
 	velocity->setValue(playerSP.getVelocity().x);
 
 	engine->process();
@@ -72,7 +84,7 @@ void Game::update(float* delta)
 	playerSP.update(*delta);
 
 	// Process player two
-	distance->setValue(Player2Dis);
+	distance->setValue(player2Dis);
 	velocity->setValue(player2SP.getVelocity().x);
 
 	engine->process();
@@ -83,8 +95,8 @@ void Game::update(float* delta)
 
 	// Testing 
 
-	//cout << std::to_string(velocity->getValue()); // switch to steering, velocity or distance to test
-	//cout << endl;
+	cout << std::to_string(velocity->getValue()); // switch to steering, velocity or distance to test
+	cout << endl;
 
 	render();
 }
