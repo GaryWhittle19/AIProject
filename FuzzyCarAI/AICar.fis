@@ -4,7 +4,7 @@ Type='mamdani'
 Version=2.0
 NumInputs=2
 NumOutputs=1
-NumRules=0
+NumRules=25
 AndMethod='min'
 OrMethod='max'
 ImpMethod='min'
@@ -14,25 +14,56 @@ DefuzzMethod='centroid'
 [Input1]
 Name='Distance'
 Range=[-1 1]
-NumMFs=3
-MF1='Left':'trimf',[-1.8 -1 -0.2]
-MF2='Middle':'trimf',[-0.8 0 0.8]
-MF3='Right':'trimf',[0.2 1 1.8]
+NumMFs=5
+MF1='FarLeft':'trimf',[-1.8 -1 -0.7]
+MF2='Middle':'trimf',[-0.1 0 0.1]
+MF3='FarRight':'trimf',[0.7 1 1.8]
+MF4='Left':'trapmf',[-0.8 -0.7 -0.2 -0.1]
+MF5='Right':'trapmf',[0.1 0.2 0.7 0.8]
 
 [Input2]
 Name='Velocity'
 Range=[-1 1]
-NumMFs=3
-MF1='Left':'trimf',[-1.8 -1 -0.2]
+NumMFs=5
+MF1='FastLeft':'trapmf',[-1.1 -1 -0.8 -0.7]
 MF2='Middle':'trimf',[-0.8 0 0.8]
-MF3='Right':'trimf',[0.2 1 1.8]
+MF3='FastRight':'trapmf',[0.7 0.8 1 1.72]
+MF4='Left':'trapmf',[-0.8 -0.7 -0.2 -0.1]
+MF5='Right':'trapmf',[0.1 0.2 0.7 0.8]
 
 [Output1]
 Name='Steering'
 Range=[-1 1]
-NumMFs=3
-MF1='mf1':'trimf',[-1.8 -1 -0.2]
-MF2='mf2':'trimf',[-0.8 0 0.8]
-MF3='mf3':'trimf',[0.2 1 1.8]
+NumMFs=5
+MF1='HardLeft':'trimf',[-1.8 -1 -0.5]
+MF2='NoSteer':'trimf',[-0.7 0 0.7]
+MF3='HardRight':'trimf',[0.5 1 1.8]
+MF4='Left':'trapmf',[-0.8 -0.7 -0.2 -0.1]
+MF5='Right':'trapmf',[0.1 0.2 0.7 0.8]
 
 [Rules]
+1 1, 3 (1) : 1
+1 4, 3 (1) : 1
+1 2, 5 (1) : 1
+1 5, 5 (1) : 1
+1 3, 2 (1) : 1
+4 1, 3 (1) : 1
+4 4, 5 (1) : 1
+4 2, 5 (1) : 1
+4 5, 2 (1) : 1
+4 3, 2 (1) : 1
+2 1, 5 (1) : 1
+2 4, 2 (1) : 1
+2 2, 2 (1) : 1
+2 5, 2 (1) : 1
+2 3, 4 (1) : 1
+5 1, 2 (1) : 1
+5 4, 2 (1) : 1
+5 2, 4 (1) : 1
+5 5, 4 (1) : 1
+5 3, 1 (1) : 1
+3 1, 2 (1) : 1
+3 4, 4 (1) : 1
+3 2, 4 (1) : 1
+3 5, 1 (1) : 1
+3 3, 1 (1) : 1

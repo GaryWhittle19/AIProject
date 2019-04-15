@@ -1,3 +1,4 @@
+
 /** GAME HEADER */
 #include "Game.h"
 #include "fl/Headers.h"
@@ -29,7 +30,7 @@ Game::Game(sf::RenderWindow* hwnd, Input* in, fl::Engine* engi)
 	playerSP.setSize(sf::Vector2f(160, 120));
 	playerSP.setTexture(&playerTX);
 	playerSP.setOrigin(80, 60);
-	playerSP.setVelocity(50.0f, 0.0f);
+	playerSP.setVelocity(0.3f, 0.0f);
 
 	// Player 2 sprite
 	if (!player2TX.loadFromFile("graphics/player2.png"))
@@ -39,6 +40,8 @@ Game::Game(sf::RenderWindow* hwnd, Input* in, fl::Engine* engi)
 	player2SP.setSize(sf::Vector2f(160, 120));
 	player2SP.setTexture(&player2TX);
 	player2SP.setOrigin(80, 60);
+	player2SP.setVelocity(-0.3f, 0.0f);
+
 
 	playerSP.setPosition(266, 100);	
 	player2SP.setPosition(532, 500);
@@ -51,13 +54,12 @@ Game::~Game()
 
 void Game::update(float* delta)
 {
-	float Player1Dis = (playerSP.getPosition().x - 300) / 100; // -300 to make player1 distance range from -300 to 300
-	float Player2Dis = (player2SP.getPosition().x - 300) / 100;
+	float Player1Dis = -0.5f;//(playerSP.getPosition().x - 300) / 100; // -300 to make player1 distance range from -300 to 300
+	float Player2Dis = -0.5f;//(player2SP.getPosition().x - 300) / 100;
 
 	fl::InputVariable* distance = engine->getInputVariable("Distance");
 	fl::InputVariable* velocity = engine->getInputVariable("Velocity");
 	fl::OutputVariable* steering = engine->getOutputVariable("Steering");
-
 
 	// Process player one
 	distance->setValue(Player1Dis);
@@ -81,8 +83,8 @@ void Game::update(float* delta)
 
 	// Testing 
 
-	cout << std::to_string(velocity->getValue()); // switch to steering, velocity or distance to test
-	cout << endl;
+	//cout << std::to_string(velocity->getValue()); // switch to steering, velocity or distance to test
+	//cout << endl;
 
 	render();
 }
