@@ -27,9 +27,9 @@ Game::Game(sf::RenderWindow* hwnd, Input* in, fl::Engine* engi)
 	{
 		// error...
 	}
-	playerSP.setSize(sf::Vector2f(160, 120));
+	playerSP.setSize(sf::Vector2f(100, 200));
 	playerSP.setTexture(&playerTX);
-	playerSP.setOrigin(80, 60);
+	playerSP.setOrigin(50, 100);
 	playerSP.setVelocity(-1.0f, 0.0f);
 
 	// Player 2 sprite
@@ -37,13 +37,22 @@ Game::Game(sf::RenderWindow* hwnd, Input* in, fl::Engine* engi)
 	{
 		// error
 	}
-	player2SP.setSize(sf::Vector2f(160, 120));
+	player2SP.setSize(sf::Vector2f(100, 200));
 	player2SP.setTexture(&player2TX);
-	player2SP.setOrigin(80, 60);
-	player2SP.setVelocity(1.0f, 0.0f);
+	player2SP.setOrigin(50, 100);
+	//player2SP.setVelocity(1.0f, 0.0f);
 
-	playerSP.setPosition(266, 100);	
-	player2SP.setPosition(532, 500);
+	playerSP.setPosition(166, 100);	
+	player2SP.setPosition(632, 500);
+
+	// Line sprite
+	if (!lineTX.loadFromFile("graphics/line.png"))
+	{
+		// error
+	}
+	lineSP.setTexture(&lineTX);
+	lineSP.setSize(sf::Vector2f(10, 600));
+	lineSP.setPosition(398.0f, 000.0f);
 }
 
 Game::~Game()
@@ -53,27 +62,30 @@ Game::~Game()
 
 void Game::update(float* delta)
 {
-	float player1Dis;
-	if (playerSP.getPosition().x < 400) {
-		player1Dis = playerSP.getPosition().x / 400 * -1;
+	// MOVE RACING LINE
+	if (input->isKeyDown(sf::Keyboard::A)) {
+		racingLineXVal -= 0.5f;
 	}
-	else if (playerSP.getPosition().x > 400) {
-		player1Dis = (playerSP.getPosition().x - 400) / 400;
+	else if (input->isKeyDown(sf::Keyboard::D)) {
+		racingLineXVal += 0.5f;
 	}
-	
-	float player2Dis;
-	if (player2SP.getPosition().x < 400) {
-		player2Dis = player2SP.getPosition().x / 400 * -1;
+	// CLAMP RACING LINE
+	if (racingLineXVal > 796) {
+		racingLineXVal = 796;
 	}
-	else if (player2SP.getPosition().x > 400) {
-		player2Dis = (player2SP.getPosition().x - 400) / 400;
+	else if (racingLineXVal < 0) {
+		racingLineXVal = 0;
 	}
-
+	// SET RACING LINE SPRITE POSITION
+	lineSP.setPosition(racingLineXVal, 0.0f);
+	// COMPUTE DISTANCES FROM LINE
+	float player1Dis = (playerSP.getPosition().x - racingLineXVal) / 400;
+	float player2Dis = (player2SP.getPosition().x - racingLineXVal) / 400;
+	// SETUP INPUT AND OUTPUT VARIABLES
 	fl::InputVariable* distance = engine->getInputVariable("Distance");
 	fl::InputVariable* velocity = engine->getInputVariable("Velocity");
 	fl::OutputVariable* steering = engine->getOutputVariable("Steering");
-
-	// Process player one
+	// PROCESS PLAYER ONE (FUZZY)
 	distance->setValue(player1Dis);
 	velocity->setValue(playerSP.getVelocity().x);
 
@@ -83,20 +95,14 @@ void Game::update(float* delta)
 	playerSP.setPosition(playerSP.getPosition() + playerSP.getVelocity());
 	playerSP.update(*delta);
 
-	// Process player two
-	distance->setValue(player2Dis);
-	velocity->setValue(player2SP.getVelocity().x);
+	// PROCESS PLAYER TWO (DIFFERENT METHOD)
 
-	engine->process();
-
-	player2SP.setVelocity(steering->getValue(), 0.0f);
 	player2SP.setPosition(player2SP.getPosition() + player2SP.getVelocity());
 	player2SP.update(*delta);
 
 	// Testing 
-
-	cout << std::to_string(velocity->getValue()); // switch to steering, velocity or distance to test
-	cout << endl;
+	//cout << std::to_string(velocity->getValue()); // switch to steering, velocity or distance to test
+	//cout << endl;
 
 	render();
 }
@@ -108,6 +114,7 @@ void Game::render()
 	window->draw(backgroundSP);
 	window->draw(playerSP);
 	window->draw(player2SP);
+	window->draw(lineSP);
 
 	window->display();
 }

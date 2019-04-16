@@ -20,6 +20,9 @@ public:
 	void update(float* delta);
 	void render();
 
+private:
+	float racingLineXVal = 400.0f;
+
 protected:
 	// Window and input objects
 	sf::RenderWindow* window;
@@ -34,5 +37,8 @@ protected:
 	// Player 2 sprite
 	StaticSprite player2SP;
 	sf::Texture player2TX;
+	// Racing line sprite
+	StaticSprite lineSP;
+	sf::Texture lineTX;
 };
 

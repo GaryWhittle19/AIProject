@@ -18,8 +18,8 @@ NumMFs=5
 MF1='FarLeft':'trimf',[-1.8 -1 -0.7]
 MF2='Middle':'trimf',[-0.1 0 0.1]
 MF3='FarRight':'trimf',[0.7 1 1.8]
-MF4='Left':'trapmf',[-0.8 -0.7 -0.2 -0.1]
-MF5='Right':'trapmf',[0.1 0.2 0.7 0.8]
+MF4='Left':'trapmf',[-0.9 -0.7 -0.2 0]
+MF5='Right':'trapmf',[0 0.2 0.7 0.9]
 
 [Input2]
 Name='Velocity'
@@ -38,8 +38,8 @@ NumMFs=5
 MF1='HardLeft':'trimf',[-1.8 -1 -0.5]
 MF2='NoSteer':'trimf',[-0.7 0 0.7]
 MF3='HardRight':'trimf',[0.5 1 1.8]
-MF4='Left':'trapmf',[-0.8 -0.7 -0.2 -0.1]
-MF5='Right':'trapmf',[0.1 0.2 0.7 0.8]
+MF4='Left':'trapmf',[-0.9 -0.7 -0.2 0]
+MF5='Right':'trapmf',[0 0.2 0.7 0.9]
 
 [Rules]
 1 1, 3 (1) : 1
