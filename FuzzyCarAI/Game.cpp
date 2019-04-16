@@ -112,9 +112,9 @@ void Game::render()
 	window->clear(sf::Color::White);
 
 	window->draw(backgroundSP);
+	window->draw(lineSP);
 	window->draw(playerSP);
 	window->draw(player2SP);
-	window->draw(lineSP);
 
 	window->display();
 }
