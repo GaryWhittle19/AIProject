@@ -70,8 +70,8 @@ void Game::update(float* delta)
 		racingLineXVal += 0.5f;
 	}
 	// CLAMP RACING LINE
-	if (racingLineXVal > 796) {
-		racingLineXVal = 796;
+	if (racingLineXVal > 790) {
+		racingLineXVal = 790;
 	}
 	else if (racingLineXVal < 0) {
 		racingLineXVal = 0;
@@ -88,7 +88,7 @@ void Game::update(float* delta)
 	// PROCESS PLAYER ONE (FUZZY)
 	distance->setValue(player1Dis);
 	velocity->setValue(playerSP.getVelocity().x);
-
+	
 	engine->process();
 
 	playerSP.setVelocity(steering->getValue(), 0.0f);
@@ -97,12 +97,9 @@ void Game::update(float* delta)
 
 	// PROCESS PLAYER TWO (DIFFERENT METHOD)
 
+
 	player2SP.setPosition(player2SP.getPosition() + player2SP.getVelocity());
 	player2SP.update(*delta);
-
-	// Testing 
-	//cout << std::to_string(velocity->getValue()); // switch to steering, velocity or distance to test
-	//cout << endl;
 
 	render();
 }
