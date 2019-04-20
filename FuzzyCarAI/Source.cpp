@@ -1,23 +1,11 @@
 /** SFML INCLUDES */
 #include <SFML/Graphics.hpp>
-#include <SFML/Network.hpp>
-#include <SFML/System/Vector2.hpp>
-#include <SFML/System/Time.hpp>
-
-/** STANDARD LIBRARY INCLUDES */
-#include <stdio.h>
-#include <stdlib.h>
-#include <memory>
-#include <thread>
-#include <string>
-#include <iostream>
 
 /** OUR CLASSES */
 #include "Input.h"
 #include "Game.h"
 #include "fl/headers.h"
 
-using namespace std;
 using namespace fl;
 
 int main(int argc, char *argv[])

@@ -16,11 +16,3 @@ sf::Vector2f Sprite::getVelocity()
 {
 	return velocity;
 }
-
-void Sprite::setAlive(bool live) {
-	alive = live;
-}
-
-bool Sprite::isAlive() {
-	return alive;
-}

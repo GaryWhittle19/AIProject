@@ -14,11 +14,6 @@ public:
 	// Get velocity of the sprite.
 	sf::Vector2f getVelocity();
 
-	// Used for managing sprite spawning, respawning, despawning - etc...
-	void setAlive(bool live);
-	bool isAlive();
-
 protected:
 	sf::Vector2f velocity;	// The velocity vector for this object.
-	bool alive;				// Is the sprite alive in the world?
 };

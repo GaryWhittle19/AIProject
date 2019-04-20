@@ -8,7 +8,7 @@ Input::~Input()
 {
 }
 
-// Input setter functions.
+// Input setter functions
 void Input::setKeyDown(int key)
 {
 	keys[key] = true;
@@ -18,7 +18,7 @@ void Input::setKeyUp(int key)
 	keys[key] = false;
 }
 
-// Input getter functions.
+// Input getter functions
 bool Input::isKeyDown(int key)
 {
 	return keys[key];
