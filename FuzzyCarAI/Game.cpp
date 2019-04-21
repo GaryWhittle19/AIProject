@@ -54,8 +54,8 @@ Game::Game(sf::RenderWindow* hwnd, Input* in, fl::Engine* engi)
 
 
 	// Set initial player positions
-	playerSP.setPosition(166, 100);	
-	player2SP.setPosition(632, 500);
+	playerSP.setPosition(166, 150);	
+	player2SP.setPosition(632, 450);
 
 
 	// Line sprite
