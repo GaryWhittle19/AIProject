@@ -113,6 +113,7 @@ void Game::update(float* delta)
 	// Update player one
 	playerSP.setVelocity(player1Vel, 0.0f);
 	playerSP.setPosition(playerSP.getPosition() + playerSP.getVelocity());
+	playerSP.setRotation(player1Dis * -45.0f);
 	playerSP.update(*delta);
 	
 
@@ -130,6 +131,7 @@ void Game::update(float* delta)
 	// Update player two
 	player2SP.setVelocity(player2Vel, 0.0f);
 	player2SP.setPosition(player2SP.getPosition() + player2SP.getVelocity());
+	player2SP.setRotation(player2Dis * -45.0f);
 	player2SP.update(*delta);
 
 
