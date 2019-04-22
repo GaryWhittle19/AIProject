@@ -112,27 +112,27 @@ void Game::update(float* delta)
 	// Get time elapsed since last fuzzy check
 	float fuzzyElapsed = fuzzyClock.getElapsedTime().asSeconds();
 	if (fuzzyElapsed > AITick) {
-		// Setup fuzzylite input and output variables
-		fl::InputVariable* distance = engine->getInputVariable("Distance");
-		fl::InputVariable* velocity = engine->getInputVariable("Velocity");
-		fl::OutputVariable* steering = engine->getOutputVariable("Steering");
-		// Assign values in fuzzy control system 
-		distance->setValue(player1Dis);
-		velocity->setValue(playerSP.getVelocity().x);
-		// Process the fuzzy logic
-		engine->process();
-		// Set velocity
-		player1Vel = steering->getValue();
+		//// Setup fuzzylite input and output variables
+		//fl::InputVariable* distance = engine->getInputVariable("Distance");
+		//fl::InputVariable* velocity = engine->getInputVariable("Velocity");
+		//fl::OutputVariable* steering = engine->getOutputVariable("Steering");
+		//// Assign values in fuzzy control system 
+		//distance->setValue(player1Dis);
+		//velocity->setValue(playerSP.getVelocity().x);
+		//// Process the fuzzy logic
+		//engine->process();
+		//// Set velocity
+		//player1Vel = steering->getValue();
 		// Reset timer
 		fuzzyClock.restart();
 		// Output test data
 
-		fuzzyFile << player1Dis << "," << player1Vel << "," << steering->getValue() << endl;
+		//fuzzyFile << player1Dis << "," << player1Vel << "," << steering->getValue() << endl;
 	}
 
 	// Update player one
 	playerSP.setVelocity(player1Vel, 0.0f);
-	playerSP.setPosition(playerSP.getPosition() + playerSP.getVelocity()*0.75f);
+	playerSP.setPosition(playerSP.getPosition() + playerSP.getVelocity()*1.0f);
 	playerSP.setRotation(player1Dis * -45.0f);
 	playerSP.update(*delta);
 	
@@ -152,7 +152,7 @@ void Game::update(float* delta)
 
 	// Update player two
 	player2SP.setVelocity(player2Vel, 0.0f);
-	player2SP.setPosition(player2SP.getPosition() + player2SP.getVelocity()*0.75f);
+	player2SP.setPosition(player2SP.getPosition() + player2SP.getVelocity()*1.0f);
 	player2SP.setRotation(player2Dis * -45.0f);
 	player2SP.update(*delta);
 
