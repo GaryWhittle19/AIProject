@@ -2,6 +2,7 @@
 #include "fl/Headers.h"
 
 #include <iostream>
+#include <fstream>
 
 using namespace std;
 
@@ -14,10 +15,26 @@ sf::Clock fuzzyClock;
 // Timer for FSM logic
 sf::Clock finiteClock;
 // AI-tick
-float AITick = 0.013;
+#define AITick 0.25f
+
+// Testing file
+// define the ofstream file
+ofstream fuzzyFile;
+ofstream finiteFile;
 
 Game::Game(sf::RenderWindow* hwnd, Input* in, fl::Engine* engi)
 {
+	std::string fuzzyFilename; // Fuzzy test data
+	fuzzyFilename = "fuzzyTestData.csv";
+	fuzzyFile.open(fuzzyFilename);
+	fuzzyFile << "DISTANCE" << "," << "VELOCITY" << "," << "STEERING" << endl;
+
+	std::string finiteFilename; // FSM test data
+	finiteFilename = "finiteTestData.csv";
+	finiteFile.open(finiteFilename);
+	finiteFile << "DISTANCE" << "," << "VELOCITY" << "," << "STEERING" << endl;
+
+
 	// Setup access to SFML window and Input class
 	window = hwnd;
 	input = in;
@@ -108,11 +125,14 @@ void Game::update(float* delta)
 		player1Vel = steering->getValue();
 		// Reset timer
 		fuzzyClock.restart();
+		// Output test data
+
+		fuzzyFile << player1Dis << "," << player1Vel << "," << steering->getValue() << endl;
 	}
 
 	// Update player one
 	playerSP.setVelocity(player1Vel, 0.0f);
-	playerSP.setPosition(playerSP.getPosition() + playerSP.getVelocity());
+	playerSP.setPosition(playerSP.getPosition() + playerSP.getVelocity()*0.75f);
 	playerSP.setRotation(player1Dis * -45.0f);
 	playerSP.update(*delta);
 	
@@ -126,11 +146,13 @@ void Game::update(float* delta)
 		checkState();
 		// Reset timer
 		finiteClock.restart();
+		// Test data
+		finiteFile << player2Dis << "," << player2Vel << "," << PoliceState << endl;
 	}
 
 	// Update player two
 	player2SP.setVelocity(player2Vel, 0.0f);
-	player2SP.setPosition(player2SP.getPosition() + player2SP.getVelocity());
+	player2SP.setPosition(player2SP.getPosition() + player2SP.getVelocity()*0.75f);
 	player2SP.setRotation(player2Dis * -45.0f);
 	player2SP.update(*delta);
 
@@ -194,7 +216,7 @@ void Game::render()
 
 void Game::stateUpdate(float dis)
 {
-	if (dis > 0.005) {
+	if (dis > 0.05) {
 		if (dis > 0.8) {
 			PoliceState = HardLeft;
 		} 
@@ -202,7 +224,7 @@ void Game::stateUpdate(float dis)
 			PoliceState = Left;
 		}
 	}
-	else if (dis < -0.005) {
+	else if (dis < -0.05) {
 		if (dis < -0.8) {
 			PoliceState = HardRight;
 		}
