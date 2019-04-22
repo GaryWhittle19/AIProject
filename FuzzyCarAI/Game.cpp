@@ -112,22 +112,21 @@ void Game::update(float* delta)
 	// Get time elapsed since last fuzzy check
 	float fuzzyElapsed = fuzzyClock.getElapsedTime().asSeconds();
 	if (fuzzyElapsed > AITick) {
-		//// Setup fuzzylite input and output variables
-		//fl::InputVariable* distance = engine->getInputVariable("Distance");
-		//fl::InputVariable* velocity = engine->getInputVariable("Velocity");
-		//fl::OutputVariable* steering = engine->getOutputVariable("Steering");
-		//// Assign values in fuzzy control system 
-		//distance->setValue(player1Dis);
-		//velocity->setValue(playerSP.getVelocity().x);
-		//// Process the fuzzy logic
-		//engine->process();
-		//// Set velocity
-		//player1Vel = steering->getValue();
+		// Setup fuzzylite input and output variables
+		fl::InputVariable* distance = engine->getInputVariable("Distance");
+		fl::InputVariable* velocity = engine->getInputVariable("Velocity");
+		fl::OutputVariable* steering = engine->getOutputVariable("Steering");
+		// Assign values in fuzzy control system 
+		distance->setValue(player1Dis);
+		velocity->setValue(playerSP.getVelocity().x);
+		// Process the fuzzy logic
+		engine->process();
+		// Set velocity
+		player1Vel = steering->getValue();
 		// Reset timer
 		fuzzyClock.restart();
 		// Output test data
-
-		//fuzzyFile << player1Dis << "," << player1Vel << "," << steering->getValue() << endl;
+		fuzzyFile << player1Dis << "," << player1Vel << "," << steering->getValue() << endl;
 	}
 
 	// Update player one
